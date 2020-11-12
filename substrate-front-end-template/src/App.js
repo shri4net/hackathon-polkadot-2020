@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { Container, Dimmer, Loader, Grid, Sticky, Message } from 'semantic-ui-react';
+import { Container, Dimmer, Loader, Grid, Sticky, Message, Breadcrumb, Divider } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
@@ -48,8 +48,18 @@ function Main () {
 
   const contextRef = createRef();
 
+  const sections = [
+    {content:'SHRI4NET', link:true},
+    {content:'hackathon-polkadot-2020', link:true},
+    {content:'placeholder', active:true}
+  ];
+
   return (
     <div ref={contextRef}>
+      <Container>
+        <Breadcrumb icon='right angle' sections={sections} size='large'/>
+        <Divider />
+      </Container>
       <Sticky context={contextRef}>
         <AccountSelector setAccountAddress={setAccountAddress} />
       </Sticky>

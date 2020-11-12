@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Icon, Grid } from 'semantic-ui-react';
+import { Card, Icon, Grid, Label } from 'semantic-ui-react';
 
 import { useSubstrate } from './substrate-lib';
 
@@ -37,6 +37,9 @@ function Main (props) {
               Substrate Front End Template
             </a>
           </Card.Description>
+          <Card.Meta>
+            <Label size='tiny' color='blue'><Icon name='fork'/>&nbsp;&nbsp;Forked by (SHRI4NET)</Label>
+          </Card.Meta>
         </Card.Content>
         <Card.Content extra>
           <Icon name='setting' />v{nodeInfo.nodeVersion}
