@@ -43,7 +43,17 @@ Substrate front-end template commit changes
 
 
 ### Screen shots
+Initial state (logged in as Alex)
+![Initial state](/screen-shots/11.png)
 
+Transaction (logged/approved in as Alex, Multisig group with Bob. Transfer amount to Dave)
+![Transaction state](/screen-shots/22.png)
+
+Transaction (logged/approved in as Bob, Multisig group with Alex. Transfer amount to Dave)
+![Transaction state](/screen-shots/33.png)
+
+Transaction event sequence in PolkaJS app
+![PolkaJs App events](/screen-shots/44.png)
 
 
 
