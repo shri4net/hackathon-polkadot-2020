@@ -1,5 +1,13 @@
 {
   "APP_NAME": "substrate-front-end-tutorial",
   "DEVELOPMENT_KEYRING": true,
-  "RPC": {}
+  "RPC": {},
+  "CUSTOM_TYPES": {
+    "Address": "AccountId",
+    "LookupSource": "AccountId",
+    "SomeStruct" : {
+      "some_number1": "u32",
+      "some_number2": "u32"
+    }
+  }
 }
