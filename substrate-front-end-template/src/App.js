@@ -15,6 +15,7 @@ import NodeInfo from './NodeInfo';
 import TemplateModule from './TemplateModule';
 import Transfer from './Transfer';
 import Upgrade from './Upgrade';
+import Multisig from './Multisig';
 
 function Main () {
   const [accountAddress, setAccountAddress] = useState(null);
@@ -51,14 +52,13 @@ function Main () {
   const sections = [
     {content:'SHRI4NET', link:true},
     {content:'hackathon-polkadot-2020', link:true},
-    {content:'placeholder', active:true}
+    {content:'FRAME Multisig', active:true}
   ];
 
   return (
     <div ref={contextRef}>
       <Container>
         <Breadcrumb icon='right angle' sections={sections} size='large'/>
-        <Divider />
       </Container>
       <Sticky context={contextRef}>
         <AccountSelector setAccountAddress={setAccountAddress} />
@@ -71,6 +71,10 @@ function Main () {
             <BlockNumber />
             <BlockNumber finalized />
           </Grid.Row>
+          <Grid.Row>
+            <Multisig accountPair={accountPair} />
+            <Events />
+          </Grid.Row>
           <Grid.Row stretched>
             <Balances />
           </Grid.Row>
@@ -80,7 +84,6 @@ function Main () {
           </Grid.Row>
           <Grid.Row>
             <Interactor accountPair={accountPair} />
-            <Events />
           </Grid.Row>
           <Grid.Row>
             <TemplateModule accountPair={accountPair} />
