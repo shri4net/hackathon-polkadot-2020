@@ -6,12 +6,19 @@
 
 use frame_support::{decl_module, decl_storage, decl_event, decl_error, dispatch, traits::Get};
 use frame_system::ensure_signed;
+use frame_support::codec::{Encode, Decode};
 
 #[cfg(test)]
 mod mock;
 
 #[cfg(test)]
 mod tests;
+
+#[derive(Encode, Decode, Default, Clone, PartialEq, Eq, Debug)]
+pub struct SomeStruct {
+	some_number1: u32,
+	some_number2: u32,
+}
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
 pub trait Trait: frame_system::Trait {
@@ -29,6 +36,8 @@ decl_storage! {
 		// Learn more about declaring storage items:
 		// https://substrate.dev/docs/en/knowledgebase/runtime/storage#declaring-storage-items
 		Something get(fn something): Option<u32>;
+
+		SomeStructStore: map hasher(blake2_128_concat) T::AccountId => SomeStruct;
 	}
 }
 
@@ -39,6 +48,7 @@ decl_event!(
 		/// Event documentation should end with an array that provides descriptive names for event
 		/// parameters. [something, who]
 		SomethingStored(u32, AccountId),
+		SomeStructStored(SomeStruct, AccountId),
 	}
 );
 
@@ -77,6 +87,28 @@ decl_module! {
 
 			// Emit an event.
 			Self::deposit_event(RawEvent::SomethingStored(something, who));
+			// Return a successful DispatchResult
+			Ok(())
+		}
+
+		#[weight = 10_000 + T::DbWeight::get().writes(1)]
+		//pub fn do_somestruct(origin, somestruct: SomeStruct) -> dispatch::DispatchResult {
+		pub fn do_somestruct(origin, num1: u32, num2: u32) -> dispatch::DispatchResult {
+			// Check that the extrinsic was signed and get the signer.
+			// This function will return an error if the extrinsic is not signed.
+			// https://substrate.dev/docs/en/knowledgebase/runtime/origin
+			let who = ensure_signed(origin)?;
+
+			let somestruct = SomeStruct {
+				some_number1 : num1,
+				some_number2 : num2
+			};
+
+			<SomeStructStore<T>>::insert(who, somestruct);
+
+			// Emit an event.
+			//Self::deposit_event(RawEvent::SomeStructStored(somestruct, who));
+			
 			// Return a successful DispatchResult
 			Ok(())
 		}
