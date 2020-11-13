@@ -19,6 +19,16 @@ function Main (props) {
 
   const { groupOf, addressTo, amount, blocknumber, index } = formState;
 
+  const weightinfo = 200000000;
+
+  const timepointf = () =>
+  {
+    if(blocknumber === null || index == 0)
+      return null;
+    else
+      return {height: blocknumber, index: index};
+  };
+
   return (
     <Grid.Column width={8}>
       <h1>Multisig (for 2)</h1>
@@ -81,7 +91,7 @@ function Main (props) {
             attrs={{
               palletRpc: 'multisig',
               callable: 'asMulti',
-              inputParams: [2,[groupOf],{height:blocknumber,index:index},api.tx.balances.transfer(addressTo, amount).method.toHex(),false,200000000],
+              inputParams: [2,[groupOf],timepointf(),api.tx.balances.transfer(addressTo, amount).method.toHex(),false,weightinfo],
               paramFields: [true, true, {optional:true},true,true,true]
             }}
           />
